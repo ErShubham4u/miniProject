@@ -90,6 +90,41 @@
         </div>
     </section>
 
+    <script>
+        document.querySelector(".contact report").addEventListener("submit", function(event){
+            event.preventDefault();
+
+            const formData = {
+                name: this.querySelector('input[name="myname"]').value,
+                email: this.querySelector('input[name="email"]').value,
+                phoneNumber: this.querySelector('input[name="phone"]').value,
+                whatBringsYouHere: this.querySelector('input[name="subject"]').value,
+                yourMessage: this.querySelector('name = "message').value
+            };
+
+            fetch("http://localhost:8082/api/registrations/storeContactReport", { 
+            method: "POST",
+            headers: {
+            },
+            body: JSON.stringify(formData) 
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                console.log("Success:", data);
+                alert("Registration successful! \nEnjoy your journey");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Sharing report failed: " + error.message);
+            });
+            })
+    </script>
+
 </body>
 
 </html>
